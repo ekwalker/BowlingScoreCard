@@ -1,0 +1,115 @@
+html {
+  font-size: 10px;
+}
+
+#wrapper {
+  text-align: center;
+}
+
+.title {
+  padding: 0.8em;
+  text-align: center;
+  font-family: Roboto, sans-serif;
+  background-color: #12C49B;
+  font-size: 48px;
+}
+
+.table {
+  display: inline-block;
+  margin-top: 5em;
+}
+
+.row {
+  margin: 0;
+  width: 149.5em;
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.cell {
+  display: table-cell;
+  border: 2px #6F7372 solid;
+  width: 2%;
+  margin: 0;
+}
+
+.head {
+  line-height: 3em;
+  font-size: 20px;
+}
+
+.game li {
+  border-top: none;
+  height: 12em;
+}
+
+.frame_1 {
+  height: 5em;
+  width: 30%;
+  display: inline-block;
+  border-bottom: 1px #6F7372 solid;
+  border-left: 1px #6F7372 solid;
+  float: right;
+}
+
+.frame_2 {
+  height: 5em;
+  width: 30%;
+  display: inline-block;
+  border-bottom: 1px #6F7372 solid;
+  border-left: 1px #6F7372 solid;
+  float: right;
+}
+
+.frame_total {
+  height: 7em;
+  width: 100%;
+  display: inline-block;
+}
+
+.frame_10_1 {
+  height: 5em;
+  width: 30%;
+  display: inline-block;
+  border-bottom: 1px #6F7372 solid;
+  border-left: 1px #6F7372 solid;
+  float: right;
+}
+
+.frame_10_2 {
+  height: 5em;
+  width: 30%;
+  display: inline-block;
+  border-bottom: 1px #6F7372 solid;
+  border-left: 1px #6F7372 solid;
+  float: right;
+}
+
+.frame_10_3 {
+  height: 5em;
+  width: 30%;
+  display: inline-block;
+  border-bottom: 1px #6F7372 solid;
+  border-left: 1px #6F7372 solid;
+  float: right;
+}
+
+.add {
+  width: 2em;
+  height: 2em;
+  border: 2px #6F7372 solid;
+}
+
+.cell.control {
+  height: 5em;
+  width: 12.2em;
+  float: right;
+  line-height: 5em;
+  border-top: 0;
+}
+
+#remove_button {
+  border-left: none;
+  margin-right: -.2em;
+}
