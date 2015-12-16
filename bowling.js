@@ -5,6 +5,11 @@ var currentFrame = 1;
 var totalScore = 0;
 var activeColor = ['#7CF2F2', '#82ED7E', '#F08484', '#7B83ED', '#E7F285']
 
+/*
+ * setup function:
+ * Initializes player names as contenteditables and sets up click handlers on control buttons
+ */
+
 function setup() {
     var playerNames = document.getElementsByClassName('name');
     var player;
@@ -56,6 +61,11 @@ function setup() {
 
 }
 
+/*
+ * makeEditable function:
+ * Takes an element and makes it contenteditable.  Prevents pasting within and keeps text input to 1 character max.
+ */
+
 function makeEditable(element) {
     element.setAttribute('contenteditable', true);
     element.focus();
@@ -76,7 +86,17 @@ function makeEditable(element) {
     }
 }
 
-function submitScore(element, playerid, frame, inputFrame) {
+/*
+ * submitScore function:
+ * Takes the input frame element whose score is to be submitted, sends the score to the validator, handles validation errors,
+ * then calls calculateScores to update all of the players' scores.
+ */
+
+function submitScore(element) {
+    var id = element.id;
+    var playerid = parseInt(id.replace(/[^0-9]+([0-9])\_[0-9]+\_[0-9]/, '$1'));
+    var frame = parseInt(id.replace(/[^0-9]+[0-9]\_([0-9]+)\_[0-9]/, '$1'));
+    var inputFrame = parseInt(id.replace(/[^0-9]+[0-9]\_[0-9]+\_([0-9])/, '$1'));
     if(element.textContent === 'x') {
         element.textContent = 'X';
     }
@@ -109,6 +129,14 @@ function submitScore(element, playerid, frame, inputFrame) {
         element.focus();
     }
 }
+
+/*
+ * calculateScores function:
+ * Takes in the player whose scores are being calculated, the frame (should always be 0 from outside the function), and a boolean for whether
+ * or not it is being called recursively to find future scores for spare or strike calculations (also always 0 from outside the function).
+ *
+ * Spaghetti code that could be a lot more readable and efficient (code-space wise) with some more time.
+ */
 
 function calculateScores(player, frame, checkingNext) {
     var frameScore;
@@ -230,6 +258,12 @@ function calculateScores(player, frame, checkingNext) {
 
 }
 
+/*
+ * validateScore function:
+ * Takes the score to be validated, which inputFrame it is, the current frame being played, and the player id who scored it.
+ * Verifies that the score is possible within its position (no non-allowed characters, or numbers that do not add up in a proper bowling game)
+ */
+
 function validateScore(score, inputFrame, frame, playerid) {
     if(score === '') {
         return false;
@@ -286,6 +320,12 @@ function validateScore(score, inputFrame, frame, playerid) {
     }
 }
 
+/*
+ * nextMove function:
+ * Takes the id of the last player to go, and which frame was just played.
+ * Finds the next cell that should be played (either the next player on the same frame, or the first player on the next frame).
+ */
+
 function nextMove(lastPlayer, frame) {
     var nextPlayer;
     var nextFrame;
@@ -306,6 +346,12 @@ function nextMove(lastPlayer, frame) {
     makeEditable(next);
 }
 
+/*
+ * endGame function:
+ * Ends the game.  Tallies up the scores, declares the winner, and prompts the user to begin a new game or allows them to
+ * go back and examine or change the scorecard.
+ */
+ 
 function endGame() {
     var highscore = 0;
     var score = 0;
