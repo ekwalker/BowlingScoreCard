@@ -11,6 +11,11 @@ function setup() {
 
     for (var i = 0; i < playerNames.length; i++) {
         playerNames[i].setAttribute('contenteditable', true);
+        playerNames[i].onmousedown = function() {
+            if(this.textContent === 'Click to edit...') {
+                this.textContent = '';
+            }
+        }
     }
 
     var addPlayer = document.getElementById('add_button');
@@ -39,6 +44,7 @@ function setup() {
         if(confirm === true) {
             for (i = 0; i < playerNames.length; i++) {
                 playerNames[i].setAttribute('contenteditable', false);
+                playerNames[i].onmousedown = null;
             }
             addPlayer.onclick = null;
             removePlayer.onclick = null;
