@@ -41,10 +41,10 @@ html {
 
 .game li {
   border-top: none;
-  height: 12em;
+  height: 2em;
 }
 
-.frame_1 {
+.input_1 {
   height: 5em;
   width: 30%;
   display: inline-block;
@@ -53,7 +53,7 @@ html {
   float: right;
 }
 
-.frame_2 {
+.input_2 {
   height: 5em;
   width: 30%;
   display: inline-block;
@@ -62,13 +62,13 @@ html {
   float: right;
 }
 
-.frame_total {
+.input_total {
   height: 7em;
   width: 100%;
   display: inline-block;
 }
 
-.frame_10_1 {
+.input_10_1 {
   height: 5em;
   width: 30%;
   display: inline-block;
@@ -77,7 +77,7 @@ html {
   float: right;
 }
 
-.frame_10_2 {
+.input_10_2 {
   height: 5em;
   width: 30%;
   display: inline-block;
@@ -86,7 +86,7 @@ html {
   float: right;
 }
 
-.frame_10_3 {
+.input_10_3 {
   height: 5em;
   width: 30%;
   display: inline-block;
@@ -95,21 +95,57 @@ html {
   float: right;
 }
 
-.add {
-  width: 2em;
-  height: 2em;
-  border: 2px #6F7372 solid;
+.playername {
+  vertical-align: middle;
+  font-size: 18px;
+}
+
+.name[contenteditable='true'] {
+  cursor: pointer;
+  background-color: #CBF5F5;
+  height: 1.4em;
 }
 
 .cell.control {
-  height: 5em;
-  width: 12.2em;
+  height: 3em;
+  width: 8.7em;
   float: right;
-  line-height: 5em;
+  line-height: 3em;
   border-top: 0;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 #remove_button {
   border-left: none;
-  margin-right: -.2em;
+  margin-right: -.15em;
+}
+
+#start_game {
+  border-right: none;
+}
+
+.game_hide {
+  display:none;
+}
+
+.input_frame {
+  height: 1.4em;
+  font-size: 32px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+.totalscore {
+    font-size: 48px;
+}
+
+.input_total {
+    font-size: 48px;
+    vertical-align: middle;
+    height: 2.4em;
+}
+
+.input_frame[contenteditable='true'] {
+    cursor: pointer;
 }
