@@ -3,6 +3,7 @@
 var numPlayers = 1;
 var currentFrame = 1;
 var totalScore = 0;
+var activeColor = ['#7CF2F2', '#82ED7E', '#F08484', '#7B83ED', '#E7F285']
 
 function setup() {
     var playerNames = document.getElementsByClassName('name');
@@ -51,41 +52,55 @@ function setup() {
 
 function makeEditable(element) {
     element.setAttribute('contenteditable', true);
-    element.style.backgroundColor = '#CBF5F5';
     element.focus();
     var id = element.id;
     var playerid = parseInt(id.replace(/[^0-9]+([0-9])\_[0-9]+\_[0-9]/, '$1'));
     var frame = parseInt(id.replace(/[^0-9]+[0-9]\_([0-9]+)\_[0-9]/, '$1'));
     var inputFrame = parseInt(id.replace(/[^0-9]+[0-9]\_[0-9]+\_([0-9])/, '$1'));
-    var submitScore = function() {
-        if(element.textContent === 'x') {
-            element.textContent = 'X';
-        }
-        var score = element.textContent;
-        if(validateScore(score, inputFrame, frame, playerid)) {
-            totalScore = 0;
-            calculateScores(playerid, 1, 0);
-            element.style.backgroundColor  = '';
-            if(frame === currentFrame && ((inputFrame > 1 && frame < 10) || (score === 'X' && frame < 10) || (frame === 10 && inputFrame === 3))){
-                nextMove(playerid, frame);
-            } else if(frame === currentFrame) {
-                var next = document.getElementById('frame_' + playerid + '_' + frame + '_' + (inputFrame + 1));
-                makeEditable(next);
-            }
-        } else {
-            alert('Error: invalid score: ' + score + '.  Please enter 0-9, /, or X in the appropriate square.');
-            element.textContent = '';
-            element.focus();
-        }
-    };
+    element.style.backgroundColor = activeColor[playerid];
+
     element.onpaste = function() { return false; }
     element.onkeydown = function(e) {
         if(e.keyCode === 13) {
             e.preventDefault();
-            submitScore();
+            submitScore(element, playerid, frame, inputFrame);
         } else if(e.which != 8 && element.textContent.length > 0) {
             e.preventDefault();
         }
+    }
+}
+
+function submitScore(element, playerid, frame, inputFrame) {
+    if(element.textContent === 'x') {
+        element.textContent = 'X';
+    }
+    var score = element.textContent;
+    if(validateScore(score, inputFrame, frame, playerid)) {
+        totalScore = 0;
+        calculateScores(playerid, 1, 0);
+        console.log(element);
+        element.style.backgroundColor  = '';
+        if(frame === currentFrame && ((inputFrame > 1 && frame < 10) || (score === 'X' && frame < 10) || (frame === 10 && inputFrame === 3))){
+            nextMove(playerid, frame);
+        } else if(frame === currentFrame) {
+            var next = document.getElementById('frame_' + playerid + '_' + frame + '_' + (inputFrame + 1));
+            if(frame === 10 && inputFrame === 2) {
+                if(score !== 'X' && score !== '/') {
+                    var lastframe = document.getElementById('frame_' + playerid + '_10_3');
+                    makeEditable(next);
+                    lastframe.textContent = '0';
+                    submitScore(lastframe, playerid, 10, 3);
+                } else {
+                    makeEditable(next);
+                }
+            } else {
+                makeEditable(next);
+            }
+        }
+    } else {
+        alert('Error: invalid score: ' + score + '.  Please enter 0-9, /, or X in the appropriate square.');
+        element.textContent = '';
+        element.focus();
     }
 }
 
@@ -201,7 +216,6 @@ function calculateScores(player, frame, checkingNext) {
         totalScore += frameScore;
         document.getElementById('frame_' + player + '_' + frame + '_total').textContent = totalScore;
         document.getElementById('score_' + player).textContent = totalScore;
-        console.log('test');
         if(frame < 10) {
             calculateScores(player, frame + 1, 0);
         }
@@ -290,15 +304,29 @@ function endGame() {
     var highscore = 0;
     var score = 0;
     var player = 0;
+    var tiedPlayers = '';
+    var end;
     for(var i = 0; i < numPlayers; i++) {
         score = parseInt(document.getElementById('score_' + i).textContent);
         if(score > highscore) {
+            tiedPlayers = [];
             highscore = score;
             player = i;
+        } else if(score === highscore) {
+            if(tiedPlayers.length > 0) {
+                tiedPlayers += ', ' + document.getElementById('name_' + i).textContent;
+            } else {
+                tiedPlayers = document.getElementById('name_' + i).textContent;
+            }
+
         }
     }
     var playerName = document.getElementById('name_' + player).textContent;
-    var end = confirm('Game Over! The winner is:\n' + playerName + ', with ' + highscore + 'points!\n\nWould you like to play again?');
+    if(tiedPlayers.length > 0) {
+        end = confirm('Game Over! There was a tie! The following players are the winners:\n' + playerName + ', ' + tiedPlayers + ', with ' + highscore + 'points!\n\nWould you like to play again?');
+    } else {
+        end = confirm('Game Over! The winner is:\n' + playerName + ', with ' + highscore + 'points!\n\nWould you like to play again?');
+    }
     if(end) {
         location.reload();
     }
