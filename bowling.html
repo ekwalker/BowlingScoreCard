@@ -35,7 +35,7 @@
         <!-- ko foreach: players -->
         <ul class="row game">
           <li class="cell playername">
-            <div class="name" data-placeholder="Click to edit..." data-bind="text: playername, attr: { contenteditable: editable }"></div>
+            <div class="name" data-placeholder="Click to edit..." data-bind="value: playername, attr: { contenteditable: editable }, event: { input: onInput }"></div>
           </li>
           <!-- ko foreach: frames -->
           <li class="cell frame" >

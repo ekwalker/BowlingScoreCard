@@ -7,7 +7,7 @@ var bowlingModel;
 // Class to represent a row in the bowling scorecard
 function Player(playername, id) {
     var self = this;
-    self.playername = playername;
+    self.playername = ko.observable(playername);
     self.playerid = id;
     self.editable = ko.observable(true);
     self.score = ko.observable(0);
@@ -23,6 +23,11 @@ function Player(playername, id) {
         new Frame(8, self),
         new Frame(9, self)
     ]);
+
+    self.onInput = function(data, e) {
+        self.playername(e.target.innerText);
+        return true;
+    }
 
     self.calculateScore = function() {
         var totalScore = 0;
@@ -331,9 +336,7 @@ function inputFrame(ball, frame) {
             } else if(self.ball() === 2) {
                 if(!isNaN(score)) {
                     if(score_1 + score === 10) {
-                        console.log(self.score());
                         self.score('/');
-                        console.log(self.score());
                         return true;
                     } else {
                         return score_1 + score < 10;
@@ -394,14 +397,15 @@ function BowlingViewModel() {
         self.players().forEach(function(player) {
             score = player.score();
             if(score > highscore) {
+                console.log(player);
                 tiedPlayers = '';
                 highscore = score;
-                topPlayer = player.playername;
+                topPlayer = player.playername();
             } else if(score === highscore) {
                 if(tiedPlayers.length > 0) {
-                    tiedPlayers += ', ' + player.playername;
+                    tiedPlayers += ', ' + player.playername();
                 } else {
-                    tiedPlayers = player.playername;
+                    tiedPlayers = player.playername();
                 }
 
             }
