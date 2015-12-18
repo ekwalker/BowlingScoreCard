@@ -17,7 +17,7 @@ html {
 
 .table {
   display: inline-block;
-  margin-top: 5em;
+  margin-top: 1em;
 }
 
 .row {
@@ -107,23 +107,32 @@ html {
   height: 1.4em;
 }
 
-.cell.control {
+.name[contenteditable=true]:empty:before{
+  content: attr(data-placeholder);
+  display: block; /* For Firefox */
+}
+
+.control {
   height: 3em;
   width: 8.7em;
   float: right;
   line-height: 3em;
-  border-top: 0;
   cursor: pointer;
   font-size: 14px;
+  border: 2px #6F7372 solid;
+  border-collapse: collapse;
+  display:inline;
 }
 
-#remove_button {
-  border-left: none;
-  margin-right: -.15em;
+#add_button {
+    border-left: none;
+    border-right: none;
 }
 
-#start_game {
-  border-right: none;
+.controls {
+  display:table;
+  list-style-type: none;
+  margin: 1em auto;
 }
 
 .game_hide {

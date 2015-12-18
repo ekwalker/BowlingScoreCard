@@ -5,59 +5,59 @@ var currentFrame = 1;
 var totalScore = 0;
 var activeColor = ['#7CF2F2', '#82ED7E', '#F08484', '#7B83ED', '#E7F285']
 
+// Class to represent a row in the bowling scorecard
+function Player(name) {
+    var self = this;
+    self.name = name;
+    self.editable = ko.observable(true);
+}
+
+// Overall viewmodel for this screen, along with initial state
+function BowlingViewModel() {
+    var self = this;
+    self.displayControls = ko.observable(true);
+
+    // Editable data
+    self.players = ko.observableArray([
+        new Player("")
+    ]);
+
+    self.addPlayer = function() {
+        if(self.players().length < 5) {
+            self.players.push(new Player(""));
+        } else {
+            alert('Error: only 5 players are supported, sorry!');
+        }
+    }
+
+    self.removePlayer = function() {
+        if(self.players().length > 1){
+            self.players.pop();
+        } else {
+            alert('Error: You must have at least one player!');
+        }
+    }
+
+    self.startGame = function() {
+        var confirm = window.confirm('Are you sure you want to start the game? You won\'t be able to add any more players or edit player names anymore.');
+        if(confirm === true) {
+            self.displayControls(false);
+            self.players().forEach(function(player) {
+                player.editable(false);
+            });
+            makeEditable(document.getElementById('frame_0_1_1'));
+        }
+    }
+}
+
 /*
  * setup function:
  * Initializes player names as contenteditables and sets up click handlers on control buttons
  */
 
 function setup() {
-    var playerNames = document.getElementsByClassName('name');
-    var player;
-
-    for (var i = 0; i < playerNames.length; i++) {
-        playerNames[i].setAttribute('contenteditable', true);
-        playerNames[i].onmousedown = function() {
-            if(this.textContent === 'Click to edit...') {
-                this.textContent = '';
-            }
-        }
-    }
-
-    var addPlayer = document.getElementById('add_button');
-    addPlayer.onclick = function() {
-        if(numPlayers < 5) {
-            document.getElementById('game_' + numPlayers).style.display = "table";
-            numPlayers++;
-        } else {
-            alert('Error: only 5 players are supported, sorry!');
-        }
-    }
-
-    var removePlayer = document.getElementById('remove_button');
-    removePlayer.onclick = function() {
-        if(numPlayers > 1) {
-            document.getElementById('game_' + (numPlayers - 1)).style.display = "none";
-            numPlayers--;
-        } else {
-            alert('Error: You must have at least one player!');
-        }
-    }
-
-    var startButton = document.getElementById('start_game');
-    startButton.onclick = function() {
-        var confirm = window.confirm('Are you sure you want to start the game? You won\'t be able to add any more players or edit player names anymore.');
-        if(confirm === true) {
-            for (i = 0; i < playerNames.length; i++) {
-                playerNames[i].setAttribute('contenteditable', false);
-                playerNames[i].onmousedown = null;
-            }
-            addPlayer.onclick = null;
-            removePlayer.onclick = null;
-            startButton.onclick = null;
-            document.getElementById('controls').style.display="none";
-            makeEditable(document.getElementById('frame_0_1_1'));
-        }
-    }
+    var model = new BowlingViewModel();
+    ko.applyBindings(model);
 
 }
 
@@ -351,7 +351,7 @@ function nextMove(lastPlayer, frame) {
  * Ends the game.  Tallies up the scores, declares the winner, and prompts the user to begin a new game or allows them to
  * go back and examine or change the scorecard.
  */
- 
+
 function endGame() {
     var highscore = 0;
     var score = 0;

@@ -4,13 +4,20 @@
     <meta charset="utf-8">
     <title>Bowling Scorecard</title>
     <link rel="stylesheet" href="bowling.css">
-    <script src="bowling.js"></script>
+    <script type='text/javascript' src='knockout-3.4.0.js'></script>
+    <script type='text/javascript' src="bowling.js"></script>
+
   </head>
 
   <body onload="setup()">
     <div id="wrapper">
       <div class="title">Bowling Scorecard</div>
-      <div class="table">
+      <ul class="controls" data-bind="if: displayControls">
+        <li class="control" id="remove_button" data-bind="click: removePlayer">Remove Player</li>
+        <li class="control" id="add_button" data-bind="click: addPlayer">Add Player</li>
+        <li class = "control" id="start_game" data-bind="click: startGame">Start Game</li>
+      </ul>
+      <div class="table" data-bind="foreach: players">
         <ul class="row">
           <li class="cell head">Name</li>
           <li class="cell head">1</li>
@@ -27,7 +34,7 @@
         </ul>
         <ul class="row game" id="game_0">
           <li class="cell playername" id="player_0">
-            <div class="name" id="name_0">Click to edit...</div>
+            <div class="name" id="name_0" data-placeholder="Click to edit..." data-bind="text: name, attr: { contenteditable: editable }"></div>
           </li>
           <li class="cell frame" id="frame_0_1">
             <div class="input_2 input_frame input_frame_0" id="frame_0_1_2"></div>
@@ -82,243 +89,6 @@
           </li>
           <li class="cell totalscore" id="score_0">
           </li>
-        </ul>
-        <ul class="row game game_hide" id="game_1">
-          <li class="cell playername" id="player_1">
-              <div class="name" id="name_1">Click to edit...</div>
-          </li>
-          <li class="cell frame" id="frame_1_1">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_1_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_1_1"></div>
-            <div class="input_total" id="frame_1_1_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_2">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_2_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_2_1"></div>
-            <div class="input_total" id="frame_1_2_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_3">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_3_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_3_1"></div>
-            <div class="input_total" id="frame_1_3_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_4">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_4_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_4_1"></div>
-            <div class="input_total" id="frame_1_4_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_5">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_5_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_5_1"></div>
-            <div class="input_total" id="frame_1_5_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_6">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_6_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_6_1"></div>
-            <div class="input_total" id="frame_1_6_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_7">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_7_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_7_1"></div>
-            <div class="input_total" id="frame_1_7_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_8">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_8_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_8_1"></div>
-            <div class="input_total" id="frame_1_8_total"></div>
-          </li>
-          <li class="cell frame10" id="frame_1_9">
-            <div class="input_2 input_frame input_frame_1" id="frame_1_9_2"></div>
-            <div class="input_1 input_frame input_frame_1" id="frame_1_9_1"></div>
-            <div class="input_total" id="frame_1_9_total"></div>
-          </li>
-          <li class="cell frame" id="frame_1_10">
-            <div class="input_10_3 input_frame input_frame_1" id="frame_1_10_3"></div>
-            <div class="input_10_2 input_frame input_frame_1" id="frame_1_10_2"></div>
-            <div class="input_10_1 input_frame input_frame_1" id="frame_1_10_1"></div>
-            <div class="input_total" id="frame_1_10_total"></div>
-          </li>
-          <li class="cell totalscore" id="score_1">
-          </li>
-        </ul>
-        <ul class="row game game_hide" id="game_2">
-          <li class="cell playername" id="player_2">
-              <div class="name" id="name_2">Click to edit...</div>
-          </li>
-          <li class="cell frame" id="frame_2_1">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_1_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_1_1"></div>
-            <div class="input_total" id="frame_2_1_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_2">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_2_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_2_1"></div>
-            <div class="input_total" id="frame_2_2_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_3">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_3_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_3_1"></div>
-            <div class="input_total" id="frame_2_3_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_4">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_4_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_4_1"></div>
-            <div class="input_total" id="frame_2_4_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_5">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_5_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_5_1"></div>
-            <div class="input_total" id="frame_2_5_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_6">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_6_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_6_1"></div>
-            <div class="input_total" id="frame_2_6_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_7">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_7_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_7_1"></div>
-            <div class="input_total" id="frame_2_7_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_8">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_8_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_8_1"></div>
-            <div class="input_total" id="frame_2_8_total"></div>
-          </li>
-          <li class="cell frame10" id="frame_2_9">
-            <div class="input_2 input_frame input_frame_2" id="frame_2_9_2"></div>
-            <div class="input_1 input_frame input_frame_2" id="frame_2_9_1"></div>
-            <div class="input_total" id="frame_2_9_total"></div>
-          </li>
-          <li class="cell frame" id="frame_2_10">
-            <div class="input_10_3 input_frame input_frame_2" id="frame_2_10_3"></div>
-            <div class="input_10_2 input_frame input_frame_2" id="frame_2_10_2"></div>
-            <div class="input_10_1 input_frame input_frame_2" id="frame_2_10_1"></div>
-            <div class="input_total" id="frame_2_10_total"></div>
-          </li>
-          <li class="cell totalscore" id="score_2">
-          </li>
-        </ul>
-        <ul class="row game game_hide" id="game_3">
-          <li class="cell playername" id="player_3">
-              <div class="name" id="name_3">Click to edit...</div>
-          </li>
-          <li class="cell frame" id="frame_3_1">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_1_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_1_1"></div>
-            <div class="input_total" id="frame_3_1_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_2">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_2_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_2_1"></div>
-            <div class="input_total" id="frame_3_2_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_3">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_3_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_3_1"></div>
-            <div class="input_total" id="frame_3_3_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_4">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_4_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_4_1"></div>
-            <div class="input_total" id="frame_3_4_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_5">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_5_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_5_1"></div>
-            <div class="input_total" id="frame_3_5_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_6">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_6_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_6_1"></div>
-            <div class="input_total" id="frame_3_6_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_7">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_7_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_7_1"></div>
-            <div class="input_total" id="frame_3_7_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_8">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_8_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_8_1"></div>
-            <div class="input_total" id="frame_3_8_total"></div>
-          </li>
-          <li class="cell frame10" id="frame_3_9">
-            <div class="input_2 input_frame input_frame_3" id="frame_3_9_2"></div>
-            <div class="input_1 input_frame input_frame_3" id="frame_3_9_1"></div>
-            <div class="input_total" id="frame_3_9_total"></div>
-          </li>
-          <li class="cell frame" id="frame_3_10">
-            <div class="input_10_3 input_frame input_frame_3" id="frame_3_10_3"></div>
-            <div class="input_10_2 input_frame input_frame_3" id="frame_3_10_2"></div>
-            <div class="input_10_1 input_frame input_frame_3" id="frame_3_10_1"></div>
-            <div class="input_total" id="frame_3_10_total"></div>
-          </li>
-          <li class="cell totalscore" id="score_3">
-          </li>
-        </ul>
-        <ul class="row game game_hide" id="game_4">
-          <li class="cell playername" id="player_4">
-              <div class="name" id="name_4">Click to edit...</div>
-          </li>
-          <li class="cell frame" id="frame_4_1">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_1_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_1_1"></div>
-            <div class="input_total" id="frame_4_1_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_2">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_2_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_2_1"></div>
-            <div class="input_total" id="frame_4_2_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_3">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_3_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_3_1"></div>
-            <div class="input_total" id="frame_4_3_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_4">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_4_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_4_1"></div>
-            <div class="input_total" id="frame_4_4_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_5">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_5_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_5_1"></div>
-            <div class="input_total" id="frame_4_5_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_6">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_6_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_6_1"></div>
-            <div class="input_total" id="frame_4_6_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_7">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_7_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_7_1"></div>
-            <div class="input_total" id="frame_4_7_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_8">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_8_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_8_1"></div>
-            <div class="input_total" id="frame_4_8_total"></div>
-          </li>
-          <li class="cell frame10" id="frame_4_9">
-            <div class="input_2 input_frame input_frame_4" id="frame_4_9_2"></div>
-            <div class="input_1 input_frame input_frame_4" id="frame_4_9_1"></div>
-            <div class="input_total" id="frame_4_9_total"></div>
-          </li>
-          <li class="cell frame" id="frame_4_10">
-            <div class="input_10_3 input_frame input_frame_4" id="frame_4_10_3"></div>
-            <div class="input_10_2 input_frame input_frame_4" id="frame_4_10_2"></div>
-            <div class="input_10_1 input_frame input_frame_4" id="frame_4_10_1"></div>
-            <div class="input_total" id="frame_4_10_total"></div>
-          </li>
-          <li class="cell totalscore" id="score_4">
-          </li>
-        </ul>
-        <ul class="row" id="controls">
-          <li class="cell control" id="remove_button">Remove Player</li>
-          <li class="cell control" id="add_button">Add Player</li>
-          <li class = "cell control" id="start_game">Start Game</li>
         </ul>
       </div>
     </div>
