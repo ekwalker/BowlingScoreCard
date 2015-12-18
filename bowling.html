@@ -17,7 +17,7 @@
         <li class="control" id="add_button" data-bind="click: addPlayer">Add Player</li>
         <li class = "control" id="start_game" data-bind="click: startGame">Start Game</li>
       </ul>
-      <div class="table" data-bind="foreach: players">
+      <div class="table">
         <ul class="row">
           <li class="cell head">Name</li>
           <li class="cell head">1</li>
@@ -32,64 +32,23 @@
           <li class="cell head">10</li>
           <li class="cell head">Total</li>
         </ul>
-        <ul class="row game" id="game_0">
-          <li class="cell playername" id="player_0">
-            <div class="name" id="name_0" data-placeholder="Click to edit..." data-bind="text: name, attr: { contenteditable: editable }"></div>
+        <!-- ko foreach: players -->
+        <ul class="row game">
+          <li class="cell playername">
+            <div class="name" data-placeholder="Click to edit..." data-bind="text: playername, attr: { contenteditable: editable }"></div>
           </li>
-          <li class="cell frame" id="frame_0_1">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_1_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_1_1"></div>
-            <div class="input_total" id="frame_0_1_total"></div>
+          <!-- ko foreach: frames -->
+          <li class="cell frame" >
+            <!-- ko foreach: inputFrames -->
+            <div class="input_2 input_frame input_frame_0" data-bind="text: score, hasFocus: focus, attr: { contenteditable: editable, active: active }, event: { paste: function() { return false; }, keydown: onKeyDown }"></div>
+            <!-- /ko -->
+            <div class="input_total" data-bind="text: totalscore"></div>
           </li>
-          <li class="cell frame" id="frame_0_2">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_2_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_2_1"></div>
-            <div class="input_total" id="frame_0_2_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_3">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_3_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_3_1"></div>
-            <div class="input_total" id="frame_0_3_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_4">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_4_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_4_1"></div>
-            <div class="input_total" id="frame_0_4_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_5">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_5_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_5_1"></div>
-            <div class="input_total" id="frame_0_5_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_6">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_6_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_6_1"></div>
-            <div class="input_total" id="frame_0_6_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_7">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_7_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_7_1"></div>
-            <div class="input_total" id="frame_0_7_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_8">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_8_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_8_1"></div>
-            <div class="input_total" id="frame_0_8_total"></div>
-          </li>
-          <li class="cell frame10" id="frame_0_9">
-            <div class="input_2 input_frame input_frame_0" id="frame_0_9_2"></div>
-            <div class="input_1 input_frame input_frame_0" id="frame_0_9_1"></div>
-            <div class="input_total" id="frame_0_9_total"></div>
-          </li>
-          <li class="cell frame" id="frame_0_10">
-            <div class="input_10_3 input_frame input_frame_0" id="frame_0_10_3"></div>
-            <div class="input_10_2 input_frame input_frame_0" id="frame_0_10_2"></div>
-            <div class="input_10_1 input_frame input_frame_0" id="frame_0_10_1"></div>
-            <div class="input_total" id="frame_0_10_total"></div>
-          </li>
-          <li class="cell totalscore" id="score_0">
+          <!-- /ko -->
+          <li class="cell totalscore" data-bind="text: score">
           </li>
         </ul>
+        <!-- /ko -->
       </div>
     </div>
   </body>

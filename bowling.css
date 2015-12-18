@@ -102,7 +102,7 @@ html {
   word-wrap: break-word;
 }
 
-.name[contenteditable='true'] {
+.name[contenteditable="true"] {
   cursor: pointer;
   height: 1.4em;
 }
@@ -156,46 +156,18 @@ html {
   height: 2.4em;
 }
 
-.input_frame[contenteditable='true'] {
+.input_frame[contenteditable="true"] {
   cursor: pointer;
 }
 
-.input_frame_0 {
-    background-color: #DAF7F7;
-}
-
-#name_0[contenteditable='true'] {
+.input_frame {
   background-color: #DAF7F7;
 }
 
-.input_frame_1 {
-    background-color: #DBF7DA;
+.input_frame[active="true"] {
+  background-color: #7CF2F2;
 }
 
-#name_1[contenteditable='true'] {
-  background-color: #DBF7DA;
-}
-
-.input_frame_2 {
-    background-color: #F7DADA;
-}
-
-#name_2[contenteditable='true'] {
-  background-color: #F7DADA;
-}
-
-.input_frame_3 {
-    background-color: #DADCF7;
-}
-
-#name_3[contenteditable='true'] {
-  background-color: #DADCF7;
-}
-
-.input_frame_4 {
-    background-color: #F4F7DA;
-}
-
-#name_4[contenteditable='true'] {
-  background-color: #F4F7DA;
+#name_0[contenteditable="true"] {
+  background-color: #DAF7F7;
 }
